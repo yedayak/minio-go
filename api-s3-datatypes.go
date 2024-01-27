@@ -19,7 +19,6 @@ package minio
 
 import (
 	"encoding/xml"
-	"errors"
 	"io"
 	"reflect"
 	"time"
@@ -190,8 +189,8 @@ func (l *ListVersionsResult) UnmarshalXML(d *xml.Decoder, _ xml.StartElement) (e
 					v.isDeleteMarker = true
 				}
 				l.Versions = append(l.Versions, v)
-			default:
-				return errors.New("unrecognized option:" + tagName)
+			default: // Unknown tag name, ignoring
+				continue
 			}
 
 		}
